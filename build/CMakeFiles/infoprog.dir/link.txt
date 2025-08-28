@@ -1,1 +1,0 @@
-/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/infoprog.dir/main.cpp.o -o infoprog  -Wl,-rpath,/Users/maria/projects/new_inf_project/build libJournalLib.dylib
