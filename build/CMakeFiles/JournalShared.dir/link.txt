@@ -1,0 +1,1 @@
+/usr/bin/c++  -arch arm64 -dynamiclib -Wl,-headerpad_max_install_names -o libJournalShared.dylib -install_name @rpath/libJournalShared.dylib CMakeFiles/JournalShared.dir/src/journal_lib.cpp.o

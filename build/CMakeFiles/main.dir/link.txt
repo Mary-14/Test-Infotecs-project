@@ -1,0 +1,1 @@
+/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/main.dir/main.cpp.o -o main  -Wl,-rpath,/Users/maria/projects/new_inf_project/build libJournalShared.dylib

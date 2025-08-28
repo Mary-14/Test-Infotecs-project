@@ -1,0 +1,4 @@
+/Users/maria/projects/new_inf_project/build/CMakeFiles/JournalLib.dir
+/Users/maria/projects/new_inf_project/build/CMakeFiles/infoprog.dir
+/Users/maria/projects/new_inf_project/build/CMakeFiles/edit_cache.dir
+/Users/maria/projects/new_inf_project/build/CMakeFiles/rebuild_cache.dir
