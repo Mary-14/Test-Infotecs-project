@@ -22,9 +22,9 @@
 ## Установка и сборка
 1.  Клонировать репозиторий:
    
-`git clone`
+`git clone https://github.com/Mary-14/Test-Infotecs-project`
     
-`cd <project_name>`
+`cd Test-Infotecs-project`
    
 3.  Создать папку сборки:
 
