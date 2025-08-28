@@ -3,7 +3,7 @@
 #include <thread>
 #include <queue>
 
-class wrQueue{
+class wrQueue{//общая очередь для чтения и записи
 private:
     std::queue <std::pair<std::string, std::string>> queue;
     std::mutex mtx;
@@ -44,7 +44,7 @@ public:
 
 void reader_thread(wrQueue& queue, Journal & journal) {
     std::string line;
-    std::cout << "Введите текст (для завершения введите '-exit'):" << std::endl;
+    std::cout << "Введите строку (уровень + сообщение или только сообщение):" << std::endl;
 
     while (std::getline(std::cin, line)) {
         if (line.empty()) continue;
@@ -67,14 +67,14 @@ void reader_thread(wrQueue& queue, Journal & journal) {
             journal.changeLevel(stringToEnum(message));
         }
         }
-        else if (stringToEnum(firstWord)!=Level::UNKNOWN) {//если первое слово - level
+        else if (stringToEnum(firstWord)!=Level::UNKNOWN) {
             level = firstWord;
             std::getline(iss, message);
             if (!message.empty() && message.front() == ' ') {
             message.erase(0, message.find_first_not_of(' '));
             }
             queue.push(make_pair(level, message));
-        } else {//если вся строка сообщение
+        } else {
             message = firstWord;
             std::string rest;
             std::getline(iss, rest);
@@ -103,23 +103,26 @@ void writer_thread(wrQueue& queue, Journal & journal){
 int main(int argc, char *argv[]){
     if(argc<2){
         return -1;
-        //journalName=argv[1];
     }
     std::string journalName;
     journalName=argv[1];
 
     
     // Создание журнала с уровнем по умолчанию
-    Journal jour1(journalName);
+    Journal journal(journalName);
         
     // Если указан уровень, изменяем его
     if (argc == 3) {
         Level customLevel = stringToEnum(argv[2]);
-        jour1.changeLevel(customLevel);
+        journal.changeLevel(customLevel);
     }
     wrQueue queue;
-    std::thread reader(reader_thread, std::ref(queue), std::ref(jour1));
-    std::thread writer(writer_thread, std::ref(queue), std::ref(jour1));
+    
+    //поток для чтения сообщений
+    std::thread reader(reader_thread, std::ref(queue), std::ref(journal));
+
+    //поток дл записи сообщений
+    std::thread writer(writer_thread, std::ref(queue), std::ref(journal));
     
     reader.join();
     writer.join();

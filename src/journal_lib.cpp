@@ -25,26 +25,18 @@ Journal::Journal(const std::string& journalName, Level journalLevel):
     name(journalName), journalLevel(journalLevel)  {
         fout.open(journalName, std::ios::out | std::ios::app);
         if (!fout.is_open()) {
-        throw std::runtime_error("Cannot open journal file: " + journalName);
+            std::cout<<"Ошибка при открытии файла "<< journalName<<std::endl;
+            exit(1);
     }
 }
 
 Journal::Journal(const std::string& journalName): Journal(journalName, Level::LOW)  {
 }
 
-std::ofstream Journal::createJournalFile(){
-    std::ofstream fout (name, std::ios::app);
-    if(!fout.is_open()){
-        throw std::runtime_error("Failed to create journal file: " + name);
-    }
-    return fout;
-}
-
 //добавление сообщения в файл
 void Journal::addNewMessage(Level messageLevel, const std::string& message){
-    if (static_cast<int>(messageLevel) < static_cast<int>(journalLevel)) {
-        std::cout<<"The level of the message is too low.\n";
-        return; // Не записываем сообщения с уровнем ниже установленного
+    if (static_cast<int>(messageLevel) < static_cast<int>(journalLevel)) { // Не записываем сообщения с уровнем ниже установленного
+        return; 
     }
     time_t mytime = time(NULL);
     struct tm *now = localtime(&mytime);
